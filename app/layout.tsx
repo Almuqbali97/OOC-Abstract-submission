@@ -8,7 +8,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "OOC Abstract Submission",
   description: "Abstract submission portal for Oman Optometry Club",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
