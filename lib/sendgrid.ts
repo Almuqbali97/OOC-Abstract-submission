@@ -25,7 +25,7 @@ export const sendConfirmationEmail = async (data: EmailData) => {
 
   const msg = {
     to: data.email,
-    from: SENDER_EMAIL,
+    from: `OOC2024 <${SENDER_EMAIL}>`,
     subject: "Abstract Submission Confirmation - Oman Optometry Club",
     text: `Dear ${data.firstName} ${data.lastName},\n\nThank you for submitting your abstract "${data.abstractTitle}" to the Oman Optometry Club. Your submission has been received successfully.\n\nSubmission ID: ${data.submissionId}\n\nWe will review your submission and get back to you soon.\n\nBest regards,\nOman Optometry Club Team`,
     html: `
@@ -74,7 +74,7 @@ export const sendAdminNotificationEmail = async (data: EmailData) => {
 
   const msg = {
     to: adminEmail,
-    from: SENDER_EMAIL,
+    from: `OOC2024 <${SENDER_EMAIL}>`,
     subject: "New Abstract Submission - Oman Optometry Club",
     text: `A new abstract has been submitted.\n\nSubmission ID: ${data.submissionId}\nTitle: ${data.abstractTitle}\nSubmitter: ${data.firstName} ${data.lastName} (${data.email})\n\nPlease log in to the admin panel to review this submission.`,
     html: `
