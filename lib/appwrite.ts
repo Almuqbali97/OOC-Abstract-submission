@@ -1,5 +1,5 @@
 import { Client, Account, ID, Databases, Storage, Permission, Role } from "appwrite"
-
+// this component need to be fixed to accept uploading files
 // Environment variables will be set by the user
 const APPWRITE_ENDPOINT = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || ""
 const APPWRITE_PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || ""

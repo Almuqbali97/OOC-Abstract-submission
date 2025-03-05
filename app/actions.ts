@@ -1,5 +1,5 @@
 "use server"
-
+// this component need to be fixed to accept uploading files
 import { uploadFile, saveFormData } from "@/lib/appwrite"
 import { sendConfirmationEmail, sendAdminNotificationEmail } from "@/lib/sendgrid"
 
