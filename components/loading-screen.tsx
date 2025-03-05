@@ -87,7 +87,7 @@ export default function LoadingScreen({ animationComplete, onStartSubmission }: 
           <Button
             variant="outline"
             className="flex items-center gap-2 border-primary text-primary hover:bg-primary/10 hover:scale-105 transition-transform duration-300"
-            onClick={() => window.open("/template.pptx", "_blank")}
+            onClick={() => window.open("/occ-templates.zip", "_blank")}
           >
             <FilePresentation className="h-5 w-5" />
             Download PPT Template
@@ -96,7 +96,7 @@ export default function LoadingScreen({ animationComplete, onStartSubmission }: 
           <Button
             variant="outline"
             className="flex items-center gap-2 border-primary text-primary hover:bg-primary/10 hover:scale-105 transition-transform duration-300"
-            onClick={() => window.open("/guidelines.pdf", "_blank")}
+            onClick={() => window.open("/abstract-submission-guidelines.pdf", "_blank")}
           >
             <FileText className="h-5 w-5" />
             Download Guidelines
