@@ -1,5 +1,5 @@
 "use server"
-// this component need to be fixed to accept uploading files
+
 import { uploadFile, saveFormData } from "@/lib/appwrite"
 import { sendConfirmationEmail, sendAdminNotificationEmail } from "@/lib/sendgrid"
 
@@ -10,9 +10,9 @@ export async function submitAbstract(formData: FormData) {
     let fileId = null
 
     // Upload file to Appwrite Storage
-    // if (abstractFile) {
-    //   fileId = await uploadFile(abstractFile)
-    // }
+    if (abstractFile) {
+      fileId = await uploadFile(abstractFile)
+    }
 
     // Process author CVs if present
     const authors = JSON.parse(formData.get("authors") as string)
@@ -32,7 +32,7 @@ export async function submitAbstract(formData: FormData) {
       lastName: formData.get("lastName"),
       email: formData.get("email"),
       phone: formData.get("phone"),
-      authors: processedAuthors,
+      authors: JSON.stringify(processedAuthors),
       abstractTitle: formData.get("abstractTitle"),
       topic: formData.get("topic"),
       presentationType: formData.get("presentationType"),
@@ -43,8 +43,8 @@ export async function submitAbstract(formData: FormData) {
     }
 
     // Save to Appwrite Database
-    // const response = await saveFormData(submissionData)
-    // const submissionId = response.$id
+    const response = await saveFormData(submissionData)
+    const submissionId = response.$id
 
     // Send confirmation email to user
     await sendConfirmationEmail({
@@ -52,7 +52,7 @@ export async function submitAbstract(formData: FormData) {
       lastName: submissionData.lastName as string,
       email: submissionData.email as string,
       abstractTitle: submissionData.abstractTitle as string,
-      // submissionId,
+      submissionId,
     })
 
     // Send notification email to admin
@@ -64,10 +64,7 @@ export async function submitAbstract(formData: FormData) {
     //   submissionId,
     // })
 
-    return {
-      success: true,
-      // submissionId
-    }
+    return { success: true, submissionId }
   } catch (error) {
     console.error("Error submitting abstract:", error)
     return { success: false, error: "Failed to submit abstract. Please try again." }
