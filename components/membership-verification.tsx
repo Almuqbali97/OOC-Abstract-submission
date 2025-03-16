@@ -10,18 +10,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { CheckCircle, ArrowRight, UserCheck, Search } from "lucide-react"
+import { verifyMembership } from "@/lib/appwrite"
 
 interface MembershipVerificationProps {
   onContinue: () => void
 }
 
-// Demo data for simulation
-const DEMO_MEMBERSHIP = {
-  id: "OOC001",
-  name: "Musaab Almuqbali",
-  mobile: "9999999",
-  email: "example@email.com",
-}
 
 const formSchema = z.object({
   membershipId: z.string().min(1, "Membership ID is required"),
@@ -31,7 +25,8 @@ export default function MembershipVerification({ onContinue }: MembershipVerific
   const [verified, setVerified] = useState(false)
   const [error, setError] = useState("")
   const [isVerifying, setIsVerifying] = useState(false)
-
+  const [membership, setMemebrship] = useState("")
+console.log(membership);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,14 +38,22 @@ export default function MembershipVerification({ onContinue }: MembershipVerific
     setIsVerifying(true)
     setError("")
 
-    // Simulate API call with delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const member = await verifyMembership(values.membershipId)
 
-    // Check if the membership ID matches (case insensitive)
-    if (values.membershipId.toUpperCase() === DEMO_MEMBERSHIP.id.toUpperCase()) {
-      setVerified(true)
-    } else {
-      setError("Invalid membership ID. Please try again.")
+      if (member) {
+        setVerified(true)
+        setMemebrship({
+          id: member.membershipId,
+          name: member.fullName,
+          mobile: member.mobile,
+          email: member.email,
+        })
+      } else {
+        setError("Invalid membership ID. Please try again.")
+      }
+    } catch (error) {
+      setError("Something went wrong. Please try again later.")
     }
 
     setIsVerifying(false)
@@ -165,19 +168,19 @@ export default function MembershipVerification({ onContinue }: MembershipVerific
                 <div className="space-y-3 pl-7">
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-muted-foreground">ID:</p>
-                    <p className="text-sm font-medium">{DEMO_MEMBERSHIP.id}</p>
+                    <p className="text-sm font-medium">{membership.id}</p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-muted-foreground">Name:</p>
-                    <p className="text-sm font-medium">{DEMO_MEMBERSHIP.name}</p>
+                    <p className="text-sm font-medium">{membership.name}</p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-muted-foreground">Mobile:</p>
-                    <p className="text-sm font-medium">{DEMO_MEMBERSHIP.mobile}</p>
+                    <p className="text-sm font-medium">{membership.mobile}</p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-muted-foreground">Email:</p>
-                    <p className="text-sm font-medium">{DEMO_MEMBERSHIP.email}</p>
+                    <p className="text-sm font-medium">{membership.email}</p>
                   </div>
                 </div>
               </motion.div>

@@ -1,0 +1,5 @@
+1- Files are not manditory when submitting the abstract,
+2- Submission ID should be short one maybe an incrmantaion from 100 and up
+3- Add memberships to the database
+4- Maybe think of another way of storing authors
+5- CV now is not getting uploaded
