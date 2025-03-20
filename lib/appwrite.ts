@@ -67,3 +67,24 @@ export const verifyMembership = async (membershipId: string) => {
     throw error
   }
 }
+
+// export const bulkInsertMemberships = async (memberships: Array<{ email: string, fullName: string, mobile: string, membershipId: string }>) => {
+//   try {
+//     const promises = memberships.map((membership) => {
+//       return databases.createDocument(APPWRITE_DATABASE_ID, APPWRITE_MEMBERSHIPS_COLLECTION_ID, ID.unique(), {
+//         email: membership.email,
+//         fullName: membership.fullName,
+//         mobile: membership.mobile,
+//         membershipId: membership.membershipId,
+//       })
+//     })
+
+//     // Wait for all documents to be created
+//     const results = await Promise.all(promises)
+
+//     return results
+//   } catch (error) {
+//     console.error("Appwrite service :: bulkInsertMemberships :: error", error)
+//     throw error
+//   }
+// }
